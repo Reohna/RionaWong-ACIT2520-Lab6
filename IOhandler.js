@@ -8,6 +8,8 @@
  *
  */
 
+const { pipeline } = require("stream");
+
 const unzipper = require("unzipper"),
   fs = require("fs"),
   PNG = require("pngjs").PNG,
@@ -20,7 +22,16 @@ const unzipper = require("unzipper"),
  * @param {string} pathOut
  * @return {promise}
  */
-const unzip = (pathIn, pathOut) => {};
+const unzip = (pathIn, pathOut) => {
+
+  return new Promise ((resolve, reject)=>{
+    fs.createReadStream(pathIn)
+    .on("error",(err)=> reject(err))
+    .pipe(unzipper.Extract({ path: pathOut }))
+    .on("error",(err)=> reject(err))
+    .on("end", (err) => resolve(err))
+})
+};
 
 /**
  * Description: read all the png files from given directory and return Promise containing array of each png file path
