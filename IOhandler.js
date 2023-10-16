@@ -15,6 +15,8 @@ const unzipper = require("unzipper"),
   fs = require("fs"),
   PNG = require("pngjs").PNG,
   path = require("path");
+  // please install AdmZip.
+  // npm install adm-zip
 const AdmZip = require('adm-zip');
 
 /**
